@@ -10,23 +10,50 @@
 
 class Solution {
 public:
-    int checkHeight(TreeNode* root) {
-        if (root == NULL)
+
+    int checkHeight(TreeNode* root)
+    {
+        // If tree is empty
+        if(root == NULL)
+        {
             return 0;
+        }
 
+        // Find height of left subtree
         int left = checkHeight(root->left);
-        if (left == -1) return -1;
 
-        int right = checkHeight(root->right);
-        if (right == -1) return -1;
-
-        if (abs(left - right) > 1)
+        // If left subtree is not balanced
+        if(left == -1)
+        {
             return -1;
+        }
 
+        // Find height of right subtree
+        int right = checkHeight(root->right);
+
+        // If right subtree is not balanced
+        if(right == -1)
+        {
+            return -1;
+        }
+
+        // Check balance condition
+        if(abs(left - right) > 1)
+        {
+            return -1;
+        }
+
+        // Return height of current node
         return max(left, right) + 1;
     }
 
-    bool isBalanced(TreeNode* root) {
-        return checkHeight(root) != -1;
+    bool isBalanced(TreeNode* root)
+    {
+        if(checkHeight(root) == -1)
+        {
+            return false;
+        }
+
+        return true;
     }
 };
